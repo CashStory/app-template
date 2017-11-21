@@ -1,0 +1,118 @@
+﻿default: "{{default}}"
+entityName: "{{ Label }}"
+entityGroup: "{{ parent_zone }}"
+report: "0"
+id: "{{ index }}"
+categories: [
+  {
+    kpis: [
+      {
+        comment: " {{ '{:.1f}'.format(cumulated_distance_to_target) }} M€ / objectif"
+        name: "Chiffre d'affaires cumulé"
+        value: "{{ '{:.1f}'.format(cumulated_turnover) }}"
+        source: "Source Société Retail, 08/2015"
+        slide: 10205
+        badgeSentiment: "{{ 'better' if cumulated_distance_to_target > 0 else 'worse' }}"
+        badge: "bullet"
+        id: 1
+        unit: " M€"
+      }
+      {
+        comment: " {{ '{:.1f}'.format(monthly_distance_to_target) }} M€ / objectif"
+        name: "Chiffre d'affaires du mois"
+        value: "{{ '{:.2}'.format(monthly_turnover) }}"
+        source: "Source Société Retail, 08/2015"
+        slide: 10205
+        badgeSentiment: "{{ 'better' if monthly_distance_to_target > 0 else 'worse' }}"
+        badge: "bullet"
+        id: 9
+        unit: " M€"
+      }
+      {
+        src: "images/simply.jpg"
+        type: "media-img"
+      }
+    ]
+    name: "Chiffre d'affaires"
+  }
+  {
+    kpis: [
+      {
+        comment: "{{ '{:+.1%}'.format(customer_progress/100) }} /n-1"
+        name: "Clients"
+        value: "{{ '{:+.1f}'.format(customer) }}"
+        source: "Source Société Retail,  08/2015"
+        slide: 10101
+        badgeSentiment: "{{ 'better' if customer_progress > 0 else 'worse' }}"
+        badge: "bullet"
+        id: 2
+        unit: " M"
+      }
+      {
+        comment: "{{ '{:+.1%}'.format(article_progress/100) }} /n-1"
+        name: "Articles"
+        value: "{{ '{:+.1f}'.format(article) }}"
+        source: "Source Société Retail,  08/2015"
+        slide: 10101
+        badgeSentiment: "{{ 'better' if article_progress > 0 else 'worse' }}"
+        badge: "bullet"
+        id: 6
+        unit: " M"
+      }
+    ]
+    name: "Indicateurs macros"
+  }
+  {
+    kpis: [
+      {
+        comment: "{{ '{:+.1%}'.format(cumulated_net_margin_progress/100) }} /n-1"
+        name: "Marge nette"
+        value: "{{ '{:.2f}'.format(cumulated_net_margin) }}"
+        source: "Source Société Retail, au 31/08/2015"
+        slide: 20101
+        badgeSentiment: "{{ 'better' if cumulated_net_margin_progress > 0 else 'worse' }}"
+        badge: "bullet"
+        id: 7
+        unit: " M€"
+      }
+      {
+        comment: "{{ '{:+.1%}'.format(cumulated_disbursed_fees_progress/100) }} /n-1"
+        name: "Frais décaissés"
+        value: "{{ '{:.2f}'.format(cumulated_disbursed_fees) }}"
+        source: "Source Société Retail, au 31/08/2015"
+        slide: 20102
+        badgeSentiment: "{{ 'better' if cumulated_disbursed_fees_progress > 0 else 'worse' }}"
+        badge: "bullet"
+        id: 9
+        unit: " k€"
+      }
+      {
+        comment: "{{ '{:+.1%}'.format(cumulated_raw_cash_flow_progress/100) }} /n-1"
+        name: "Cashflow brut"
+        value: "{{ '{:.2f}'.format(cumulated_raw_cash_flow) }}"
+        source: "Source Société Retail, au 31/08/2015"
+        slide: 20202
+        badgeSentiment: "{{ 'better' if cumulated_raw_cash_flow_progress > 0 else 'worse' }}"
+        badge: "bullet"
+        id: 10
+        unit: " M€"
+      }
+      {
+        comment: "{{ '{:+.1%}'.format(cumulated_net_cash_flow_progress/100) }} /n-1"
+        name: "Cashflow net"
+        value: "{{ '{:.2f}'.format(cumulated_net_cash_flow) }}"
+        source: "Source Société Retail, au 31/08/2015"
+        slide: 20203
+        badgeSentiment: "{{ 'better' if cumulated_net_cash_flow_progress > 0 else 'worse' }}"
+        badge: "bullet"
+        id: 11
+        unit: " k€"
+      }
+      {
+        src: "images/simply2.jpg"
+        type: "media-img"
+      }
+    ]
+    name: "Indicateurs d'exploitation"
+  }
+]
