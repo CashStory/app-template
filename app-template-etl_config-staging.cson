@@ -1,0 +1,117 @@
+﻿DATA_SOURCE_DIR: 'data_sources'
+MONGO_INDEXES: [
+  'domain'
+  [
+    'domain'
+    'subdomain'
+  ]
+]
+DASHBOARDS: [
+  {
+    template: 'dashboard'             #name of dashboard (.cson) linked to the entity selected
+    query:
+      domain: 'DIM_ENTITIES'          #call the entity source
+      entityName: 'All Sales Forces'  #entity selected
+    report: 'entityName'              #dashboard dropdownlist
+  }
+  {
+    template: 'dashboard_divisions'         #name of dashboard (.cson) linked to the entity selected
+    query:
+      domain: 'DIM_ENTITIES'                #call the entity source
+      entityName: $ne: 'All Sales Forces'   #entity excluded ("$ne : " => all except)
+    report: 'entityName'                    #dashboard dropdownlist
+  }
+]
+REPORTS: [
+  {
+    query:
+      domain: 'DIM_ENTITIES'
+    template: 'report'
+  }
+]
+DATA_SOURCES: [
+  {
+    file: 'Total Credit Management Story.xlsx'
+    sheetname: 'DIM_ENTITIES'
+    domain: 'DIM_ENTITIES'
+    type: 'excel'
+  }
+  {
+    file: 'Total Credit Management Story.xlsx'
+    sheetname: 'DIM_SCENARIOS'
+    domain: 'DIM_SCENARIOS'
+    type: 'excel'
+  }
+  {
+    file: 'Total Credit Management Story.xlsx'
+    sheetname: '011_VALUD'
+    domain: '011_VALUD'
+    type: 'excel'
+  }
+  {
+    file: 'Total Credit Management Story.xlsx'
+    sheetname: '012_LINEC'
+    domain: '012_LINEC'
+    type: 'excel'
+  }
+  {
+    file: 'Total Credit Management Story.xlsx'
+    sheetname: '013_LEADB'
+    domain: '013_LEADB'
+    type: 'excel'
+  }
+  {
+    file: 'Total Credit Management Story.xlsx'
+    sheetname: '021_SCORC'
+    domain: '021_SCORC'
+    type: 'excel'
+  }
+  {
+    file: 'Total Credit Management Story.xlsx'
+    sheetname: '031_PDF'
+    domain: '031_PDF'
+    type: 'excel'
+  }
+  {
+    file: 'Total Credit Management Story.xlsx'
+    sheetname: '101_LINEC'
+    domain: '101_LINEC'
+    type: 'excel'
+  }
+  {
+    file: 'Total Credit Management Story.xlsx'
+    sheetname: '101_LEADB'
+    domain: '101_LEADB'
+    type: 'excel'
+  }
+  {
+    file: 'Total Credit Management Story.xlsx'
+    sheetname: '102_LINEC'
+    domain: '102_LINEC'
+    type: 'excel'
+  }
+  {
+    file: 'Total Credit Management Story.xlsx'
+    sheetname: '103_HORBC'
+    domain: '103_HORBC'
+    type: 'excel'
+  }
+  {
+    file: 'Total Credit Management Story.xlsx'
+    sheetname: '201_WTFAL'
+    domain: '201_WTFAL'
+    type: 'excel'
+  }
+  {
+    file: 'Total Credit Management Story.xlsx'
+    sheetname: '301_MAPCH'
+    domain: '301_MAPCH'
+    type: 'excel'
+  }
+  {
+    file: 'Total Credit Management Story.xlsx'
+    sheetname: '302_TIMLI'
+    domain: '302_TIMLI'
+    type: 'excel'
+  }
+]

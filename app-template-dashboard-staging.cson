@@ -1,0 +1,253 @@
+﻿default:true
+entityName: "{{ entityName }}"
+entityGroup: "{{ entityGroup }}"
+report: "{{ report_id }}"
+id: "{{ index }}"
+categories: [
+  {
+    name: "KPI's"
+    kpis: [
+      {
+        name: "🏭 Number of sites"
+        comment: "<%=' ' + evolution + ' vs last year'%>"
+        compute:
+          evolution: "(value - comparison)/comparison"
+        sentiment:
+          evolution:
+            domain: [
+              0
+            ]
+            range: [
+              "negative"
+              "positive"
+            ]
+        type: "value-dynamic"
+        precision:
+          evolution: "+,.2%"
+          value: ",.1f"
+        value: "value"
+        slide: 10101
+        badge: "evolution"
+        data:
+          comparison:
+            query: [
+              {
+                $match:
+                  domain: "011_VALUD"
+                  entityName: "<%= dashboard.entityName %>"
+              }
+            ]
+            field: "target_CA"
+          value:
+            query: [
+              {
+                $match:
+                  domain: "011_VALUD"
+                  entityName: "<%= dashboard.entityName %>"
+              }
+            ]
+            field: "Chiffre d'affaires cumulé"
+        id: 0
+        unit: " sites"
+      }
+      {
+        name: "👍 New sites"
+        comment: "<%=' ' + evolution + ' vs last month'%>"
+        compute:
+          evolution: "(value - comparison)/comparison"
+        sentiment:
+          evolution:
+            domain: [
+              0
+            ]
+            range: [
+              "negative"
+              "positive"
+            ]
+        type: "value-dynamic"
+        precision:
+          evolution: "+,.2%"
+          value: ",.1f"
+        value: "value"
+        slide: 10101
+        badge: "evolution"
+        data:
+          comparison:
+            query: [
+              {
+                $match:
+                  domain: "011_VALUD"
+                  entityName: "<%= dashboard.entityName%>"
+              }
+            ]
+            field: "target_CA"
+          value:
+            query: [
+              {
+                $match:
+                  domain: "011_VALUD"
+                  entityName: "<%= dashboard.entityName %>"
+              }
+            ]
+            field: "Chiffre d'affaires cumulé"
+        id: 0
+        unit: " new sites"
+      }
+      {
+        name: "💰 Risk Value"
+        comment: "<%=' ' + evolution + ' vs 2016'%>"
+        compute:
+          evolution: "(value - comparison)/comparison"
+        sentiment:
+          evolution:
+            domain: [
+              0
+            ]
+            range: [
+              "negative"
+              "positive"
+            ]
+        type: "value-dynamic"
+        precision:
+          evolution: "+,.2%"
+          value: ",.1f"
+        value: "value"
+        slide: 10101
+        badge: "evolution"
+        data:
+          comparison:
+            query: [
+              {
+                $match:
+                  domain: "011_VALUD"
+                  entityName: "<%= dashboard.entityName %>"
+              }
+            ]
+            field: "target_CA_mois"
+          value:
+            query: [
+              {
+                $match:
+                  domain: "011_VALUD"
+                  entityName: "<%= dashboard.entityName %>"
+              }
+            ]
+            field: "Chiffre d'affaires du mois"
+        id: 1
+        unit: " M€"
+      }
+      {
+        name: "💣 Sites at Risk"
+        comment: "<%=' ' + evolution + ' vs last month'%>"
+        compute:
+          evolution: "(value - comparison)/comparison"
+        sentiment:
+          evolution:
+            domain: [
+              0
+            ]
+            range: [
+              "negative"
+              "positive"
+            ]
+        type: "value-dynamic"
+        precision:
+          evolution: "+,.2%"
+          value: ",.1f"
+        value: "value"
+        slide: 10101
+        badge: "evolution"
+        data:
+          comparison:
+            query: [
+              {
+                $match:
+                  domain: "011_VALUD"
+                  entityName: "<%= dashboard.entityName %>"
+              }
+            ]
+            field: "target_CA_mois"
+          value:
+            query: [
+              {
+                $match:
+                  domain: "011_VALUD"
+                  entityName: "<%= dashboard.entityName %>"
+              }
+            ]
+            field: "Chiffre d'affaires du mois"
+        id: 1
+        unit: " %"
+      }
+      {
+        name: "Spin"
+        type: "line"
+        chartOptions:
+          date: "date"
+          units:
+            value: " %"
+          data:
+            query:
+              domain: "012_LINEC"
+              type: "client"
+              entityName: "<%= dashboard.entityName %>"
+            precision:
+              value: ",.1f"
+          value: "value"
+      }
+      {
+        name: "💳 Payment methods"
+        type: "leaderboard"
+        source:"vs last year"
+        chartOptions:
+          units:
+            value: " %"
+            evol: "%"
+          variation: "evol"
+          data:
+            query:
+              domain: "013_LEADB"
+          value: "value"
+          label: "label"
+      }
+    ]
+  }
+  {
+    name: "Scorecard"
+    kpis: [
+      {
+        name:"Risk split"
+        type: "score-card"
+        chartOptions:
+          units:
+            value: "    M€"
+            var:" %"
+          value:"value"
+          label:"label"
+          # variation:"var"
+          data:
+            query:
+              domain:"021_SCORC"  
+      }
+    ]
+  }
+  {
+    name:"More stories"
+    kpis: [
+      {
+        type: "media-video"
+        id: "FKPrlnD8iyY"
+        provider: "youtube"
+      }
+      {
+        url: "colonne_url"
+        data:
+          query:
+            domain: "031_PDF"
+        type: "pdf"
+        name: "Credit Procedures"
+        linkType: "asset"
+      }
+    ]
+  }
+]

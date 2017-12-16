@@ -1,0 +1,22 @@
+﻿name: "Company"
+execsumTitle:"Credit Management Story"  #app title
+entityName: "{{ entityName }}"          #value in the dropdown list (link with etl config - spreasheet DIM_ENTITIES)
+entityGroup: "{{ entityGroup }}"        #value in the dropdown list (link with etl config - spreasheet DIM_ENTITIES)
+slideInfos: {}
+search:
+  placeholder: "Search by Sales forces" #default value
+slug: "test"
+background:
+  assetName: "bg-1"
+  overlay: true
+date:
+  query:
+      domain: 'DIM_SCENARIOS'
+  id: 'DIM_SCENARIOS'
+  type: 'dropdown'
+  showInHeader:true
+  description: "Select another time period"
+  fields:[
+    'CURRENT'
+  ]    
+id: "{{ index }}"

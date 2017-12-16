@@ -1,0 +1,283 @@
+﻿settings:
+  comparison:
+    default: 'Par défaut'
+    values: [
+      'Par défaut'
+      'Entity A'
+      'Entity B'
+      'Entity C'
+    ]
+    description: 'Sur tous les écrans de comparaison, comparer avec :'
+glossary:
+  terms: [
+    {
+      term: 'Sales in Value'
+      meaning: 'The amount of money which would be received if something is sold'
+    }
+    {
+      term: 'Sales in Volume'
+      meaning: 'The amount or number of units that are sold of a particular product or service.'
+    }
+  ]
+  title: 'Glossaire'
+dashboardPdfEnabled: true
+slides: [
+  {
+    id: 0
+    level: 0
+  }
+  {
+    id: 1
+    level: 1
+    title: 'Activity'
+  }
+  {
+    id: 2
+    level: 1
+    title: 'Results'
+  }
+  {
+    id: 3
+    level: 1
+    title: 'Maps & Events'
+  }
+  {
+    parent_id: 1
+    id: 101
+    level: 3
+    title: 'Risk overview'
+    filters:
+      'bottom-right':
+        datasets: [
+          'default'
+          1
+        ]
+        on: 'UD_1'
+        type: 'buttons'
+        # order:
+        #   custom: [
+        #     'COMEX'
+        #     'Club 100'
+        #     'UM'
+        #     'Autres collab.'
+        #   ]
+    charts: [
+      {
+        style: 'secondary'
+        value: 'value'
+        units:
+          date: ''
+          value: ' k€'
+        crossfilter:
+          on: 'date_bis'
+          datasets: [
+            1
+          ]
+        groups: 'LABEL'
+        chartType: 'linechart'
+        date: 'date_bis'
+        dateFormat: '%B %Y'
+        cr: 4                                      #???
+        data:
+          query:
+            domain: '101_LINEC'
+            entityName: '<%= report.entityName %>' #filter on the entity selected
+        id: 'default'
+        size: 0.35                                 #size of the graph on the report
+      }
+      {
+        groups: 'Breakdown'
+        average: 56
+        label: 'LABEL'
+        legend: true
+        hideTotal: false
+        value: 'value'
+        units:
+          value: ' k€'
+        chartType: 'stackedBarchart'
+        data:
+          query:
+            domain: '101_LEADB'
+        id: 1
+        size: 0.65
+      }
+    ]
+  }
+{
+    parent_id: 1
+    id: 102
+    level: 3
+    title: 'Spin'
+    source: 'Source: fake data'
+    chartOptions:
+      filters:
+        'upper-right':
+          reset: 'All'
+          on: 'Label'
+          type: 'dropdown'
+          order:
+            by: 'Label'
+            custom: [
+              'Sales'
+              'Volume'
+              'Market Share'
+            ]
+      value: 'Value'
+      legend: true
+      units:
+        date: ' '
+        Value: ' %'
+      groups: 'Label'
+      date: 'Date'
+      chartType: 'linechart'
+      data:
+        #date:
+          #format: '%d/%m/%Y'
+          #selector: 'Date'
+        query:
+          domain: '102_LINEC'
+        precision:
+          Value: '.2f'
+  }
+  {
+    parent_id: 1
+    id: 103
+    level: 3
+    title: 'Risk Ranking'
+    source: 'Source: fake data'
+    filters:
+      'bottom-right':
+        on: 'Breakdown'
+        type: 'buttons'
+    chartOptions:
+      sort: 'desc'
+      packs: 'Breakdown'
+      value: 'Value'
+      label: 'Label'
+      packNames: true
+      variationLegend: 'YTD'
+      variation: 'Growth'
+      sparklines:
+        prefix: 'sparkline'
+        legend: 'YTD'
+        unit: ' '
+      units:
+        Growth: ' %'
+        Value: [
+          {
+            where:
+              Breakdown: 'Sales forces'
+            unit: ' k€'
+          }
+          {
+            where:
+              Breakdown: 'Risk profile'
+            unit: ' k'
+          }
+        ]
+      chartType: 'horizontalBarchart'
+      data:
+        query:
+          domain: '103_HORBC'
+        precision:
+          Growth: '.2f'
+          Value: ',.1f'
+  }
+  {
+    parent_id: 2
+    id: 201    
+    level: 3
+    title: 'Yearly Bridge'
+    source: 'Source: fake data'
+    commentary: 'Yearly risk reparition'
+    filters:
+      'bottom-right':
+        on: 'category'
+        type: 'buttons'
+        defaultSelected: 'N'
+        order:
+          custom: [
+            'N-1'
+            'N'
+          ]
+    chartOptions:
+      groups: 'drill_Groupe'
+      vs: 'evol'
+      value: 'value'
+      label: 'label'
+      zeroBaseline: 0
+      units:
+        value: ' k€'
+      chartType: 'waterfallchart'
+      data:
+        query:
+          domain: '201_WTFAL'
+      order: 'display_order'
+  }
+  {
+    parent_id: 3
+    id: 301
+    level: 3
+    title: 'French Risk Map'
+    datasets:
+      carto:
+        query:
+          domain: '301_MAPCH'
+        units:
+          value: ' ⭐'
+    filters:
+      'bottom-right':
+        on: 'breakdown'
+        datasets: [
+          'carto'
+        ]
+        type: 'buttons'
+    commentary: 'Risk exposure by French regions'
+    chartOptions:
+      zones:
+        shapes: 'depts-details-topojson.json'
+        color: 'value'
+        dataset: 'carto'
+        join:
+          shapes: 'CODE_DEPT'
+          data: 'CODE_DEPT'
+        label: 'NOM_DEPT'
+      chartType: 'mapchart'
+      datasets:
+        carto:
+          units:
+            value: ' rating'
+      legend: true
+  }
+  {
+    parent_id: 3
+    id: 302
+    level: 3
+    title: 'Calendar'
+    commentary: '<img src=\'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOP3QaMYhmAOXTmMqPkjOT9acVfhhuGZ3WJ1kenQPwTEOdCHM7o0GKdKBL\'></img>'
+    chartOptions:
+      mediaSource: 'media_source'
+      startDate: 'start_date'
+      endDate: 'end_date'
+      headline: 'headline'
+      text: 'text'
+      mediaType: 'media_type'
+      content: 'content'
+      caption: 'caption'
+      meta: [
+        'text'
+      ]
+      chartType: 'timeline'
+      data:
+        date:
+          selector: 'start_date'
+        query:
+          domain: '302_TIMLI'
+  }
+]
+locale: 'fr'
+captureChartEnabled: true
+comments: true
+sharingOptions: true
+offline: true
+slidePdfEnabled: true
