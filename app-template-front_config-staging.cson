@@ -64,40 +64,49 @@ slides: [
     charts: [
       {
         style: 'secondary'
-        value: 'value'
+        value: 'VALUE'
         units:
-          date: ''
-          value: ' k€'
+          DATE: ' '
+          VALUE: ' k€'
         crossfilter:
-          on: 'date_bis'
+          on: 'DATE'
           datasets: [
             1
           ]
         groups: 'LABEL'
         chartType: 'linechart'
-        date: 'date_bis'
-        dateFormat: '%B %Y'
+        date: 'DATE'
+        dateFormat: '%Y-%m-%d %X'
         cr: 4                                      #???
         data:
           query:
             domain: '101_LINEC'
-            entityName: '<%= report.entityName %>' #filter on the entity selected
+            ENTITY: '<%= report.entityName %>'  #filter on the entity selected
+          # date:
+          #   selector: 'DATE'
+          #   format: '%Y-%m-%d %X'
+          precision:
+            VALUE: '.2f'
         id: 'default'
         size: 0.35                                 #size of the graph on the report
       }
       {
-        groups: 'Breakdown'
+        groups: 'BREAKDOWN'
         average: 56
         label: 'LABEL'
         legend: true
         hideTotal: false
-        value: 'value'
+        value: 'VALUE'
         units:
           value: ' k€'
         chartType: 'stackedBarchart'
         data:
           query:
             domain: '101_LEADB'
+            SCENARIO: '<%= requestersManager.DIM_SCENARIOS.CURRENT %>'      #filter on the date selected
+          # date:
+          #   selector: 'DATE'
+          #   format: '%Y-%m-%d %X'
         id: 1
         size: 0.65
       }
@@ -113,31 +122,33 @@ slides: [
       filters:
         'upper-right':
           reset: 'All'
-          on: 'Label'
+          on: 'LABEL'
           type: 'dropdown'
           order:
-            by: 'Label'
-            custom: [
-              'Sales'
-              'Volume'
-              'Market Share'
-            ]
-      value: 'Value'
+            by: 'LABEL'
+            # custom: [
+            #   'Sales'
+            #   'Volume'
+            #   'Market Share'
+            # ]
+      value: 'VALUE'
       legend: true
       units:
-        date: ' '
-        Value: ' %'
-      groups: 'Label'
-      date: 'Date'
+        DATE: ' '
+        VALUE: ' %'
+      groups: 'LABEL'
+      date: 'DATE'
       chartType: 'linechart'
+      # date: 'DATE'
+      # dateFormat: '%d.%m.%Y'
       data:
-        #date:
-          #format: '%d/%m/%Y'
-          #selector: 'Date'
         query:
           domain: '102_LINEC'
+        date:
+          selector: 'DATE'
+          format: '%Y-%m-%d %X'
         precision:
-          Value: '.2f'
+          VALUE: '.2f'
   }
   {
     parent_id: 1
@@ -147,31 +158,31 @@ slides: [
     source: 'Source: fake data'
     filters:
       'bottom-right':
-        on: 'Breakdown'
+        on: 'BREAKDOWN'
         type: 'buttons'
     chartOptions:
       sort: 'desc'
-      packs: 'Breakdown'
-      value: 'Value'
-      label: 'Label'
+      packs: 'PACK'
+      value: 'VALUE'
+      label: 'LABEL'
       packNames: true
       variationLegend: 'YTD'
-      variation: 'Growth'
+      variation: 'VAR'
       sparklines:
         prefix: 'sparkline'
         legend: 'YTD'
         unit: ' '
       units:
-        Growth: ' %'
-        Value: [
+        VAR: ' %'
+        VALUE: [
           {
             where:
-              Breakdown: 'Sales forces'
+              BREAKDOWN: 'Sales forces'
             unit: ' k€'
           }
           {
             where:
-              Breakdown: 'Risk profile'
+              BREAKDOWN: 'Risk profile'
             unit: ' k'
           }
         ]
@@ -180,8 +191,8 @@ slides: [
         query:
           domain: '103_HORBC'
         precision:
-          Growth: '.2f'
-          Value: ',.1f'
+          VAR: '.2f'
+          VALUE: ',.1f'
   }
   {
     parent_id: 2
@@ -192,7 +203,7 @@ slides: [
     commentary: 'Yearly risk reparition'
     filters:
       'bottom-right':
-        on: 'category'
+        on: 'CATEGORY'
         type: 'buttons'
         defaultSelected: 'N'
         order:
@@ -201,18 +212,18 @@ slides: [
             'N'
           ]
     chartOptions:
-      groups: 'drill_Groupe'
-      vs: 'evol'
-      value: 'value'
-      label: 'label'
+      groups: 'DRILL_GROUP'
+      vs: 'VAR'
+      value: 'VALUE'
+      label: 'LABEL'
       zeroBaseline: 0
       units:
-        value: ' k€'
+        VALUE: ' k€'
       chartType: 'waterfallchart'
       data:
         query:
           domain: '201_WTFAL'
-      order: 'display_order'
+      order: 'DISPLAY_ORDER'
   }
   {
     parent_id: 3
@@ -227,7 +238,7 @@ slides: [
           value: ' ⭐'
     filters:
       'bottom-right':
-        on: 'breakdown'
+        on: 'BREAKDOWN'
         datasets: [
           'carto'
         ]
@@ -236,7 +247,7 @@ slides: [
     chartOptions:
       zones:
         shapes: 'depts-details-topojson.json'
-        color: 'value'
+        color: 'VALUE'
         dataset: 'carto'
         join:
           shapes: 'CODE_DEPT'
@@ -246,7 +257,7 @@ slides: [
       datasets:
         carto:
           units:
-            value: ' rating'
+            VALUE: ' rating'
       legend: true
   }
   {
@@ -256,21 +267,21 @@ slides: [
     title: 'Calendar'
     commentary: '<img src=\'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOP3QaMYhmAOXTmMqPkjOT9acVfhhuGZ3WJ1kenQPwTEOdCHM7o0GKdKBL\'></img>'
     chartOptions:
-      mediaSource: 'media_source'
-      startDate: 'start_date'
-      endDate: 'end_date'
-      headline: 'headline'
+      mediaSource: 'MEDIA_SOURCE'
+      startDate: 'START_DATE'
+      endDate: 'END_DATE'
+      headline: 'HEADLINE'
       text: 'text'
-      mediaType: 'media_type'
-      content: 'content'
-      caption: 'caption'
+      mediaType: 'MEDIA_TYPE'
+      content: 'CONTENT'
+      caption: 'CAPTION'
       meta: [
         'text'
       ]
       chartType: 'timeline'
       data:
         date:
-          selector: 'start_date'
+          selector: 'START_DATE'
         query:
           domain: '302_TIMLI'
   }

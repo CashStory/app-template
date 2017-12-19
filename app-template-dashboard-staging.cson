@@ -1,6 +1,6 @@
 ﻿default:true
-entityName: "{{ entityName }}"
-entityGroup: "{{ entityGroup }}"
+entityName: "{{ ENTITY_NAME }}"         #Init : Entity display
+entityGroup: "{{ ENTITY_GROUP }}"       #Init : Group of entities displayed
 report: "{{ report_id }}"
 id: "{{ index }}"
 categories: [
@@ -34,19 +34,21 @@ categories: [
               {
                 $match:
                   domain: "011_VALUD"
-                  entityName: "<%= dashboard.entityName %>"
+                  ENTITY: "<%= dashboard.entityName %>"  
+                  SCENARIO: "<%= requestersManager.DIM_SCENARIOS.PREVIOUS %>"
               }
             ]
-            field: "target_CA"
+            field: "VD_1"
           value:
             query: [
               {
                 $match:
                   domain: "011_VALUD"
-                  entityName: "<%= dashboard.entityName %>"
+                  ENTITY: "<%= dashboard.entityName %>" 
+                  SCENARIO: "<%= requestersManager.DIM_SCENARIOS.CURRENT %>"
               }
             ]
-            field: "Chiffre d'affaires cumulé"
+            field: "VD_1"
         id: 0
         unit: " sites"
       }
@@ -77,19 +79,21 @@ categories: [
               {
                 $match:
                   domain: "011_VALUD"
-                  entityName: "<%= dashboard.entityName%>"
+                  ENTITY: "<%= dashboard.entityName %>"
+                  SCENARIO: "<%= requestersManager.DIM_SCENARIOS.PREVIOUS %>"
               }
-            ]
-            field: "target_CA"
+            ] 
+            field: "VD_2"
           value:
             query: [
               {
                 $match:
                   domain: "011_VALUD"
-                  entityName: "<%= dashboard.entityName %>"
+                  ENTITY: "<%= dashboard.entityName %>"
+                  SCENARIO: "<%= requestersManager.DIM_SCENARIOS.CURRENT %>"
               }
             ]
-            field: "Chiffre d'affaires cumulé"
+            field: "VD_2"
         id: 0
         unit: " new sites"
       }
@@ -120,19 +124,21 @@ categories: [
               {
                 $match:
                   domain: "011_VALUD"
-                  entityName: "<%= dashboard.entityName %>"
+                  ENTITY: "<%= dashboard.entityName %>"
+                  SCENARIO: "<%= requestersManager.DIM_SCENARIOS.PREVIOUS %>"
               }
             ]
-            field: "target_CA_mois"
+            field: "VD_3"
           value:
             query: [
               {
                 $match:
                   domain: "011_VALUD"
-                  entityName: "<%= dashboard.entityName %>"
+                  ENTITY: "<%= dashboard.entityName %>"
+                  SCENARIO: "<%= requestersManager.DIM_SCENARIOS.CURRENT %>"
               }
             ]
-            field: "Chiffre d'affaires du mois"
+            field: "VD_3"
         id: 1
         unit: " M€"
       }
@@ -163,19 +169,21 @@ categories: [
               {
                 $match:
                   domain: "011_VALUD"
-                  entityName: "<%= dashboard.entityName %>"
+                  ENTITY: "<%= dashboard.entityName %>"
+                  SCENARIO: "<%= requestersManager.DIM_SCENARIOS.PREVIOUS %>"
               }
             ]
-            field: "target_CA_mois"
+            field: "VD_4"
           value:
             query: [
               {
                 $match:
                   domain: "011_VALUD"
-                  entityName: "<%= dashboard.entityName %>"
+                  ENTITY: "<%= dashboard.entityName %>"
+                  SCENARIO: "<%= requestersManager.DIM_SCENARIOS.CURRENT %>"
               }
             ]
-            field: "Chiffre d'affaires du mois"
+            field: "VD_4"
         id: 1
         unit: " %"
       }
@@ -183,17 +191,17 @@ categories: [
         name: "Spin"
         type: "line"
         chartOptions:
-          date: "date"
+          date: "DATE"
           units:
-            value: " %"
+            VALUE: " %"
           data:
             query:
               domain: "012_LINEC"
-              type: "client"
-              entityName: "<%= dashboard.entityName %>"
+              ENTITY: "<%= dashboard.entityName %>"
+              SCENARIO: "<%= requestersManager.DIM_SCENARIOS.CURRENT %>"
             precision:
-              value: ",.1f"
-          value: "value"
+              VALUE: ",.1f"
+          value: "VALUE"
       }
       {
         name: "💳 Payment methods"
@@ -203,12 +211,12 @@ categories: [
           units:
             value: " %"
             evol: "%"
-          variation: "evol"
+          variation: "VAR"
           data:
             query:
               domain: "013_LEADB"
-          value: "value"
-          label: "label"
+          value: "VALUE"
+          label: "LABEL"
       }
     ]
   }
@@ -222,9 +230,9 @@ categories: [
           units:
             value: "    M€"
             var:" %"
-          value:"value"
-          label:"label"
-          # variation:"var"
+          value:"VALUE"
+          label:"LABEL"
+          # variation:"VAR"
           data:
             query:
               domain:"021_SCORC"  
@@ -240,7 +248,7 @@ categories: [
         provider: "youtube"
       }
       {
-        url: "colonne_url"
+        url: "COLONNE_URL"
         data:
           query:
             domain: "031_PDF"

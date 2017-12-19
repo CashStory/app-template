@@ -11,14 +11,14 @@ DASHBOARDS: [
     template: 'dashboard'             #name of dashboard (.cson) linked to the entity selected
     query:
       domain: 'DIM_ENTITIES'          #call the entity source
-      entityName: 'All Sales Forces'  #entity selected
+      ENTITY_NAME: 'All Sales Forces'  #entity selected
     report: 'entityName'              #dashboard dropdownlist
   }
   {
     template: 'dashboard_divisions'         #name of dashboard (.cson) linked to the entity selected
     query:
       domain: 'DIM_ENTITIES'                #call the entity source
-      entityName: $ne: 'All Sales Forces'   #entity excluded ("$ne : " => all except)
+      ENTITY_NAME: $ne: 'All Sales Forces'   #entity excluded ("$ne : " => all except)
     report: 'entityName'                    #dashboard dropdownlist
   }
 ]

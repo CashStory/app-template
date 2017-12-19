@@ -1,7 +1,7 @@
 ﻿name: "Company"
 execsumTitle:"Credit Management Story"  #app title
-entityName: "{{ entityName }}"          #value in the dropdown list (link with etl config - spreasheet DIM_ENTITIES)
-entityGroup: "{{ entityGroup }}"        #value in the dropdown list (link with etl config - spreasheet DIM_ENTITIES)
+entityName: "{{ ENTITY_NAME }}"          #value in the dropdown list (link with etl config - spreasheet DIM_ENTITIES)
+entityGroup: "{{ ENTITY_GROUP }}"        #value in the dropdown list (link with etl config - spreasheet DIM_ENTITIES)
 slideInfos: {}
 search:
   placeholder: "Search by Sales forces" #default value
@@ -16,6 +16,7 @@ date:
   type: 'dropdown'
   showInHeader:true
   description: "Select another time period"
+  completeObjectMode: true
   fields:[
     'CURRENT'
   ]    
